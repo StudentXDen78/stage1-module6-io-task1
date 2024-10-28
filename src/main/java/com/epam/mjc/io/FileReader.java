@@ -11,16 +11,14 @@ import java.util.Objects;
 public class FileReader {
     public static Profile getDataFromFile(File file)
     {
-        String absolutePath = "C:\\Users\\Admin\\IdeaProjects\\stage1-module6-io-task1\\src\\main\\resources\\Profile.txt";
-        //System.out.println(absolutePath);
+        String path = "C:\\Users\\Admin\\IdeaProjects\\stage1-module6-io-task1\\src\\main\\resources\\";
+        String absolutePath = path + file;
         StringBuilder dataFromFile = new StringBuilder();
         try(FileInputStream fileInputStream = new FileInputStream(absolutePath)) {
             int ch;
             while((ch = fileInputStream.read()) != -1) {
-                // System.out.print((char)ch);
                 dataFromFile.append((char)ch);
             }
-            // System.out.print(dataFromFile);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (IOException a) {
@@ -44,5 +42,10 @@ public class FileReader {
         }
 
         return anna;
+    }
+
+    public static void main(String[] args){
+        File file = new File("Profile.txt");
+        getDataFromFile(file);
     }
 }
