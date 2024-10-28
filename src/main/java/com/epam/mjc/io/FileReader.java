@@ -2,6 +2,7 @@ package com.epam.mjc.io;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,20 +12,20 @@ import java.util.Objects;
 public class FileReader {
     public static Profile getDataFromFile(File file)
     {
-        // String path = "C:\\Users\\Admin\\IdeaProjects\\stage1-module6-io-task1\\src\\main\\resources\\";
-        // File absolutePath = new File(file.toString());
         StringBuilder dataFromFile = new StringBuilder();
         try(FileInputStream fileInputStream = new FileInputStream(file)) {
             int ch;
-            while((ch = fileInputStream.read()) != -1) {
-                dataFromFile.append((char)ch);
+            while ((ch = fileInputStream.read()) != -1) {
+                dataFromFile.append((char) ch);
             }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException();
         } catch (IOException e) {
             throw new RuntimeException();
         }
 
         HashMap<String, String> dataInLibraryMap= new HashMap<>();
-        String[] base = dataFromFile.toString().split("\r\n");
+        String[] base = dataFromFile.toString().split(System.lineSeparator());
         Profile anna = new Profile();
         for (String pair : base) {
             String[] pairs = pair.split(": ");
@@ -42,7 +43,7 @@ public class FileReader {
     }
 
     public static void main(String[] args){
-        File file = new File("Profile.txt");
+        File file = new File("C:\\Users\\Admin\\IdeaProjects\\stage1-module6-io-task1\\src\\main\\resources\\Profile.txt");
         getDataFromFile(file);
     }
 }
