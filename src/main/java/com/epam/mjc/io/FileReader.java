@@ -45,9 +45,4 @@ public class FileReader {
             super(message);
         }
     }
-
-    public static void main(String[] args) {
-        File file = new File("C:\\Users\\Admin\\IdeaProjects\\stage1-module6-io-task1\\src\\main\\resources\\Profile.txt");
-        getDataFromFile(file);
-    }
 }
