@@ -2,7 +2,6 @@ package com.epam.mjc.io;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,19 +9,18 @@ import java.util.Objects;
 
 
 public class FileReader {
-    public static Profile getDataFromFile(File file) {
+    public static Profile getDataFromFile(File file) throws FileRiderException {
         StringBuilder dataFromFile = new StringBuilder();
         try(FileInputStream fileInputStream = new FileInputStream(file)) {
             int ch;
             while ((ch = fileInputStream.read()) != -1) {
                 dataFromFile.append((char) ch);
             }
-        } catch (FileNotFoundException e) {
-            // System.out.println("Ошибка, файл не найден!");
+        } catch (FileRiderException e) {
             e.getCause();
+            throw new FileRiderException("something wrong");
         } catch (IOException e) {
-            // System.out.println("Ошибка при вводе/выводе данных из файла!");
-            e.getCause();
+            throw new RuntimeException(e);
         }
 
         HashMap<String, String> dataInLibraryMap= new HashMap<>();
@@ -43,8 +41,9 @@ public class FileReader {
         return anna;
     }
 
-    public static void main(String[] args){
-        File file = new File("C:\\Users\\Admin\\IdeaProjects\\stage1-module6-io-task1\\src\\main\\resources\\Profile.txt");
-        getDataFromFile(file);
+     public static class FileRiderException extends IOException{
+        public FileRiderException(String message){
+            super(message);
+        }
     }
 }
