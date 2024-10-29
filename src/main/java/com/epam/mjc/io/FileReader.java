@@ -9,7 +9,7 @@ import java.util.Objects;
 
 
 public class FileReader {
-    public static Profile getDataFromFile(File file) throws FileRiderException {
+    public static Profile getDataFromFile(File file) {
         StringBuilder dataFromFile = new StringBuilder();
         try(FileInputStream fileInputStream = new FileInputStream(file)) {
             int ch;
@@ -18,7 +18,6 @@ public class FileReader {
             }
         } catch (FileRiderException e) {
             e.getCause();
-            throw new FileRiderException("something wrong");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -45,5 +44,10 @@ public class FileReader {
         public FileRiderException(String message){
             super(message);
         }
+    }
+
+    public static void main(String[] args) {
+        File file = new File("C:\\Users\\Admin\\IdeaProjects\\stage1-module6-io-task1\\src\\main\\resources\\Profile.txt");
+        getDataFromFile(file);
     }
 }
