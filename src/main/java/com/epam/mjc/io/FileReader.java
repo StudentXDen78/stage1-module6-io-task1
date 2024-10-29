@@ -10,8 +10,7 @@ import java.util.Objects;
 
 
 public class FileReader {
-    public static Profile getDataFromFile(File file)
-    {
+    public static Profile getDataFromFile(File file) {
         StringBuilder dataFromFile = new StringBuilder();
         try(FileInputStream fileInputStream = new FileInputStream(file)) {
             int ch;
@@ -19,9 +18,11 @@ public class FileReader {
                 dataFromFile.append((char) ch);
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException();
+            // System.out.println("Ошибка, файл не найден!");
+            e.getCause();
         } catch (IOException e) {
-            throw new RuntimeException();
+            // System.out.println("Ошибка при вводе/выводе данных из файла!");
+            e.getCause();
         }
 
         HashMap<String, String> dataInLibraryMap= new HashMap<>();
@@ -32,11 +33,11 @@ public class FileReader {
             dataInLibraryMap.put(pairs[0], pairs[1]);
         }
 
-        for (Map.Entry<String, String> key : dataInLibraryMap.entrySet()){
-            if (Objects.equals(key.getKey(), "Name")) anna.setName(dataInLibraryMap.get(key.getKey()));
-            if (Objects.equals(key.getKey(), "Age")) anna.setAge(Integer.parseInt(dataInLibraryMap.get(key.getKey())));
-            if (Objects.equals(key.getKey(), "Email")) anna.setEmail(dataInLibraryMap.get(key.getKey()));
-            if (Objects.equals(key.getKey(), "Phone")) anna.setPhone(Long.parseLong(dataInLibraryMap.get(key.getKey())));
+        for (Map.Entry<String, String> entry : dataInLibraryMap.entrySet()){
+            if (Objects.equals(entry.getKey(), "Name")) anna.setName(entry.getValue());
+            if (Objects.equals(entry.getKey(), "Age")) anna.setAge(Integer.parseInt(entry.getValue()));
+            if (Objects.equals(entry.getKey(), "Email")) anna.setEmail(entry.getValue());
+            if (Objects.equals(entry.getKey(), "Phone")) anna.setPhone(Long.parseLong(entry.getValue()));
         }
 
         return anna;
