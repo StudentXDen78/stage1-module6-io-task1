@@ -19,7 +19,7 @@ public class FileReader {
             e.getCause();
         } catch (IOException e) {
             try {
-                throw new SomeIOException(e.getCause());
+                throw new SomeIOException(e);
             } catch (SomeIOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -50,7 +50,7 @@ public class FileReader {
     }
 
     public static class SomeIOException extends IOException {
-        public SomeIOException(Throwable cause) {
+        public SomeIOException(Exception cause) {
             super(cause);
         }
     }
