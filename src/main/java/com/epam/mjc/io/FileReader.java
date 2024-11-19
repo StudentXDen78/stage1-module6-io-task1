@@ -15,8 +15,6 @@ public class FileReader {
             while ((ch = fileInputStream.read()) != -1) {
                 dataFromFile.append((char) ch);
             }
-        // } catch (FileRiderException e) {
-        //    e.getCause();
         } catch (IOException e) {
             e.getCause();
         }
