@@ -9,7 +9,7 @@ import java.util.Objects;
 
 
 public class FileReader {
-    public static Profile getDataFromFile(File file) {
+    public Profile getDataFromFile(File file) {
         StringBuilder dataFromFile = new StringBuilder();
         try(FileInputStream fileInputStream = new FileInputStream(file)) {
             int ch;
