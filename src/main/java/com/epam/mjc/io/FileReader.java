@@ -8,17 +8,17 @@ import java.util.Map;
 import java.util.Objects;
 
 public class FileReader {
-    public Profile getDataFromFile(File file) throws SomeIOException {
+    public Profile getDataFromFile(File file) {
         StringBuilder dataFromFile = new StringBuilder();
         try(FileInputStream fileInputStream = new FileInputStream(file)) {
             int ch;
             while ((ch = fileInputStream.read()) != -1) {
                 dataFromFile.append((char) ch);
             }
-        } catch (FileRiderException e) {
-            e.getCause();
+        // } catch (FileRiderException e) {
+        //    e.getCause();
         } catch (IOException e) {
-            throw new SomeIOException(e);
+            e.getCause();
         }
 
         HashMap<String, String> dataInLibraryMap= new HashMap<>();
