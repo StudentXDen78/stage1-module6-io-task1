@@ -9,7 +9,7 @@ import java.util.Objects;
 
 
 public class FileReader {
-    public Profile getDataFromFile(File file) {
+    public Profile getDataFromFile(File file) throws SomeIOException {
         StringBuilder dataFromFile = new StringBuilder();
         try(FileInputStream fileInputStream = new FileInputStream(file)) {
             int ch;
@@ -19,7 +19,7 @@ public class FileReader {
         } catch (FileRiderException e) {
             e.getCause();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new SomeIOException(e.getCause());
         }
 
         HashMap<String, String> dataInLibraryMap= new HashMap<>();
