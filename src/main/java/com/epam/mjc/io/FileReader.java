@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class FileReader {
-    public Profile getDataFromFile(File file) {
+    public Profile getDataFromFile(File file) throws SomeIOException {
         StringBuilder dataFromFile = new StringBuilder();
         try(FileInputStream fileInputStream = new FileInputStream(file)) {
             int ch;
@@ -18,11 +18,7 @@ public class FileReader {
         } catch (FileRiderException e) {
             e.getCause();
         } catch (IOException e) {
-            try {
-                throw new SomeIOException(e);
-            } catch (SomeIOException ex) {
-                throw new RuntimeException(ex);
-            }
+            throw new SomeIOException(e);
         }
 
         HashMap<String, String> dataInLibraryMap= new HashMap<>();
@@ -52,6 +48,7 @@ public class FileReader {
     public static class SomeIOException extends IOException {
         public SomeIOException(Exception cause) {
             super(cause);
+            throw new RuntimeException(cause);
         }
     }
 }
